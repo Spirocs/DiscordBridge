@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '8.3.6'
+}
+
+group = 'dev.spirocs.discordbridge'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+    withJavadocJar()
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
+
+    implementation('net.dv8tion:JDA:5.0.0') {
+        exclude module: 'opus-java'   // wichtig: kein Opus, keine Natives
+        exclude module: 'jna'         // optional: spart Größe, wenn du sicher kein Voice nutzt
+    }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.processResources {
+    filteringCharset = 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand(
+                name       : project.name,
+                version    : project.version,
+                mainClass  : 'dev.spirocs.discordbridge.Main',
+                apiVersion : '1.21'
+        )
+    }
+}
+
+tasks.shadowJar {
+    archiveClassifier.set('')
+    minimize()
+
+    relocate 'net.dv8tion', 'dev.spricos.discordbridge.libs.jda'
+    relocate 'org.slf4j',   'dev.spricos.discordbridge.libs.slf4j'
+}
+
+tasks.assemble {
+    dependsOn tasks.shadowJar
+}

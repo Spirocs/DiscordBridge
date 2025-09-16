@@ -1,0 +1,7 @@
+name: ${name}
+version: ${version}
+main: ${mainClass}
+api-version: ${apiVersion}
+authors: [ "Nikolaj" ]
+description: "Small Plugin for shared Minecraf <-> Discord Chat"
+website: ""
