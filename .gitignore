@@ -2,6 +2,7 @@
 .idea/
 *.iml
 out/
+src/main/resources/config.yml
 
 # === Gradle ===
 .gradle/

@@ -10,6 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.EnumSet;
+
 public class Main extends JavaPlugin {
 
     private JDA jda;
@@ -26,8 +28,7 @@ public class Main extends JavaPlugin {
 
         // JDA starten (asynchron)
         try {
-            jda = JDABuilder.createDefault(getConfig().getString("token"))
-                    .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT)
+            jda = JDABuilder.createLight(getConfig().getString("token"), EnumSet.of(GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT))
                     .build();
 
             // Listener für Discord -> Minecraft
