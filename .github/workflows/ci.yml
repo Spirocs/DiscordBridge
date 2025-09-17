@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Sicherheitscheck: Gradle Wrapper ist unverändert/vertrauenswürdig
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Build (tests + shadow)
+        run: ./gradlew clean test shadowJar --stacktrace
+
+      - name: Upload build artifacts (shaded jar)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-jar
+          path: build/libs/*-all.jar, build/libs/*.jar
+          if-no-files-found: warn
