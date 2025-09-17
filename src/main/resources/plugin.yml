@@ -2,6 +2,15 @@ name: ${name}
 version: ${version}
 main: ${mainClass}
 api-version: ${apiVersion}
-authors: [ "Nikolaj" ]
-description: "Small Plugin for shared Minecraf <-> Discord Chat"
+authors: [ "Nikolaj aka Spirocs" ]
+description: "Small Plugin for shared Minecraft <-> Discord Chat"
 website: ""
+
+commands:
+  discordbridge:
+    description: Main command for DiscordBridge
+    usage: /discordbridge <args>
+    permission: discordbridge.use
+permissions:
+  discordbridge.use:
+    default: op
