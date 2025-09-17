@@ -1,5 +1,6 @@
-package dev.spirocs.discordbridge;
+package dev.spirocs.discordbridge.listener;
 
+import dev.spirocs.discordbridge.Main;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,8 +1,10 @@
-package dev.spirocs.discordbridge;
+package dev.spirocs.discordbridge.listener;
 
+import dev.spirocs.discordbridge.Main;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +37,7 @@ public class DiscordListener extends ListenerAdapter {
 
         // sicher im Server-Thread broadcasten
         Bukkit.getScheduler().runTask(plugin, () ->
-                Bukkit.broadcastMessage(line)
+                Bukkit.broadcast(Component.text(line))
         );
     }
 }
