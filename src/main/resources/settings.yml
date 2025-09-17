@@ -1,6 +1,5 @@
-# DiscordBridge – Beispiel-Settings (bitte in plugins/DiscordBridge/settings.yml anpassen)
 discord:
-  token: "CHANGE_ME"   # Bot-Token hier eintragen (niemals committen)
+  token: "CHANGE_ME"
 
 channelId: ""
 guildId: ""
